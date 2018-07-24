@@ -70,6 +70,7 @@ public class AdapterTopDienThoaiDienTu extends RecyclerView.Adapter<AdapterTopDi
         SanPham sanPham = sanPhamList.get(position);
         Log.d("hinhsanpham",sanPham.getANHLON());
         Picasso.get().load(sanPham.getANHLON()).resize(140,140).centerInside().into(holder.imHinhSanPham);
+        //Picasso.get().load(R.drawable.x1).resize(140,140).centerInside().into(holder.imHinhSanPham);
         holder.txtTenSP.setText(sanPham.getTENSP());
 
         ChiTietKhuyenMai chiTietKhuyenMai = sanPham.getChiTietKhuyenMai();

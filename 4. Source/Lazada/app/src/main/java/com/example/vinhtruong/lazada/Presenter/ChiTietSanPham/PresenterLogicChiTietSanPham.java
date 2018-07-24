@@ -19,6 +19,8 @@ public class PresenterLogicChiTietSanPham implements IPresenterChiTietSanPham {
     ModelChiTietSanPham modelChiTietSanPham;
     ModelGioHang modelGioHang;
 
+
+
     public PresenterLogicChiTietSanPham(){
         modelGioHang = new ModelGioHang();
     }

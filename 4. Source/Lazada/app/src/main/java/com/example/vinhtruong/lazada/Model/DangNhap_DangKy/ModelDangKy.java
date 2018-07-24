@@ -19,9 +19,9 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class ModelDangKy {
-    public Boolean DangKyThanhVien(NhanVien nhanVien){
+    public String DangKyThanhVien(NhanVien nhanVien){
         String duongdan = TrangChuActivity.SERVER_NAME;
-        boolean kiemtra=false;
+        String  kqKiemtra="";
         List<HashMap<String,String>> attrs=new ArrayList<>();
 
         HashMap<String,String> hsHam=new HashMap<>();
@@ -39,15 +39,11 @@ public class ModelDangKy {
         HashMap<String,String> hsMaLoaiNV=new HashMap<>();
         hsMaLoaiNV.put("maloainv", String.valueOf(nhanVien.getMaLoaiNV()));
 
-        HashMap<String,String> hsEmailDocQuyen=new HashMap<>();
-        hsEmailDocQuyen.put("emaildocquyen", nhanVien.getEmailDocQuyen());
-
         attrs.add(hsHam);
         attrs.add(hsTenNV);
         attrs.add(hsTenDN);
         attrs.add(hsMatKhau);
         attrs.add(hsMaLoaiNV);
-        attrs.add(hsEmailDocQuyen);
 
         DownloadJSON downloadJSON=new DownloadJSON(duongdan,attrs);
         downloadJSON.execute();
@@ -58,10 +54,13 @@ public class ModelDangKy {
             JSONObject jsonObject=new JSONObject(dulieuJSON);
             String ketqua=jsonObject.getString("ketqua");
 
+
             if(ketqua.equals("true")){
-                kiemtra= true;
-            }else{
-                kiemtra= false;
+                kqKiemtra= "true";
+            } else if(ketqua.equals("datontai")){
+                kqKiemtra= "datontai";
+            } else{
+                kqKiemtra= "false";
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -71,6 +70,6 @@ public class ModelDangKy {
             e.printStackTrace();
         }
 
-        return kiemtra;
+        return kqKiemtra;
     }
 }

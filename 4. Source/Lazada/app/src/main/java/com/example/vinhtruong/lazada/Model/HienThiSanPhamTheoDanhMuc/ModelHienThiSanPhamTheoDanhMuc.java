@@ -1,5 +1,7 @@
 package com.example.vinhtruong.lazada.Model.HienThiSanPhamTheoDanhMuc;
 
+import android.util.Log;
+
 import com.example.vinhtruong.lazada.ConnectInternet.DownloadJSON;
 import com.example.vinhtruong.lazada.Model.ObjectClass.SanPham;
 import com.example.vinhtruong.lazada.View.TrangChu.TrangChuActivity;
@@ -60,6 +62,8 @@ public class ModelHienThiSanPhamTheoDanhMuc {
                 sanPham.setGIA(object.getInt("GIATIEN"));
                 sanPham.setANHLON(object.getString("HINHSANPHAM"));
                 sanPham.setANHNHO(object.getString("HINHSANPHAMNHO"));
+
+                Log.d("aaa",object.getString("HINHSANPHAM"));
 
                 sanPhams.add(sanPham);
 

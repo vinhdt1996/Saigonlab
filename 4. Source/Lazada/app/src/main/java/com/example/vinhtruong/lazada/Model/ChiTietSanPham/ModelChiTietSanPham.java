@@ -60,13 +60,15 @@ public class ModelChiTietSanPham {
                 DanhGia danhGia = new DanhGia();
                 JSONObject object = jsonArrayDanhSachSanPham.getJSONObject(i);
 
+                Log.d("danhgiasp",object.toString());
+
                 danhGia.setTENTHIETBI(object.getString("TENTHIETBI"));
                 danhGia.setNOIDUNG(object.getString("NOIDUNG"));
                 danhGia.setSOSAO(object.getInt("SOSAO"));
                 danhGia.setMASP(object.getInt("MASP"));
                 danhGia.setMADG(object.getString("MADG"));
                 danhGia.setNGAYDANHGIA(object.getString("NGAYDANHGIA"));
-                danhGia.setTIEUDE(object.getString("TIEUDE"));
+                //danhGia.setTIEUDE(object.getString("TIEUDE"));
 
                 danhGias.add(danhGia);
 

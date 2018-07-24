@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -22,10 +23,10 @@ import com.example.vinhtruong.lazada.R;
 
 import java.util.List;
 
-public class HienThiSanPhamTheoDanhMucActivity extends AppCompatActivity implements ViewHienThiSpTheoDanhMuc, View.OnClickListener,ILoadMore{
+public class HienThiSanPhamTheoDanhMucActivity extends AppCompatActivity implements ViewHienThiSpTheoDanhMuc, View.OnClickListener{
 
     RecyclerView recyclerView;
-    Button btnThayDoiTrangThaiRecycler;
+    ImageButton btnThayDoiTrangThaiRecycler;
     Boolean dangGrid =true;
     RecyclerView.LayoutManager layoutManager;
     PresenterLogicHienThiSanPhamTheoDanhMuc presenterLogicHienThiSanPhamTheoDanhMuc;
@@ -35,6 +36,7 @@ public class HienThiSanPhamTheoDanhMucActivity extends AppCompatActivity impleme
     Toolbar toolbar;
     List<SanPham> sanPhamList1;
     ProgressBar progressBar;
+    String tensp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,44 +45,40 @@ public class HienThiSanPhamTheoDanhMucActivity extends AppCompatActivity impleme
 
         btnThayDoiTrangThaiRecycler=findViewById(R.id.btnThayDoiTrangThaiRecycler);
         recyclerView=findViewById(R.id.recycleViewHienThiSanPhamTheoDanhMuc);
-        toolbar=findViewById(R.id.toolbar);
+        toolbar=findViewById(R.id.toolbarDanhMuc);
         progressBar = findViewById(R.id.progress_bar);
 
         Intent intent=getIntent();
         masp = intent.getIntExtra("MALOAI",0);
-        String tensp = intent.getStringExtra("TENLOAI");
+        tensp = intent.getStringExtra("TENLOAI");
         kiemtra = intent.getBooleanExtra("KIEMTRA",false);
 
         presenterLogicHienThiSanPhamTheoDanhMuc=new PresenterLogicHienThiSanPhamTheoDanhMuc(this);
         presenterLogicHienThiSanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoai(masp,kiemtra);
 
         btnThayDoiTrangThaiRecycler.setOnClickListener(this);
-        toolbar.setTitle(tensp);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(tensp);
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_trangchu,menu);
-        return true;
-    }
 
     @Override
     public void HienThiDanhSachSanPham(List<SanPham> sanPhamList) {
         sanPhamList1=sanPhamList;
         if(dangGrid==true){
+            btnThayDoiTrangThaiRecycler.setImageResource(R.drawable.ic_apps_black_24dp);
             layoutManager=new GridLayoutManager(this,2);
             adapterTopDienThoaiDienTu=new AdapterTopDienThoaiDienTu(this,R.layout.custom_topdienthoaivamaytinhbang,sanPhamList1);
         }else{
+            btnThayDoiTrangThaiRecycler.setImageResource(R.drawable.ic_view_list_black_24dp);
             layoutManager=new LinearLayoutManager(this);
             adapterTopDienThoaiDienTu=new AdapterTopDienThoaiDienTu(this,R.layout.custom_list_topdienthoaivamaytinhbang,sanPhamList1);
         }
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapterTopDienThoaiDienTu);
-        recyclerView.addOnScrollListener(new LoadMoreScroll(layoutManager,this));
         adapterTopDienThoaiDienTu.notifyDataSetChanged();
     }
 
@@ -100,11 +98,5 @@ public class HienThiSanPhamTheoDanhMucActivity extends AppCompatActivity impleme
         }
     }
 
-    @Override
-    public void LoadMore(int tongitem) {
-        List<SanPham> listsanPhamsLoadMore = presenterLogicHienThiSanPhamTheoDanhMuc.LayDanhSachSanPhamTheoMaLoaiLoadMore(masp,kiemtra,tongitem,progressBar);
-        sanPhamList1.addAll(listsanPhamsLoadMore);
 
-        adapterTopDienThoaiDienTu.notifyDataSetChanged();
-    }
 }

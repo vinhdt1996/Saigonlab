@@ -1,6 +1,7 @@
 package com.example.vinhtruong.lazada.Presenter.DangKy;
 
 import com.example.vinhtruong.lazada.Model.DangNhap_DangKy.ModelDangKy;
+import com.example.vinhtruong.lazada.Model.DangNhap_DangKy.ModelDangNhap;
 import com.example.vinhtruong.lazada.Model.ObjectClass.NhanVien;
 import com.example.vinhtruong.lazada.View.DangNhap_DangKy.ViewDangKy;
 
@@ -12,6 +13,7 @@ public class PresenterLogicDangKy implements IPresenterDangKy {
     ViewDangKy viewDangKy;
     ModelDangKy modelDangKy;
 
+
     public PresenterLogicDangKy(ViewDangKy viewDangKy) {
         this.viewDangKy = viewDangKy;
         modelDangKy=new ModelDangKy();
@@ -19,10 +21,12 @@ public class PresenterLogicDangKy implements IPresenterDangKy {
 
     @Override
     public void ThucHienDangKy(NhanVien nhanVien) {
-        boolean kiemtra = modelDangKy.DangKyThanhVien(nhanVien);
-        if(kiemtra){
+        String kiemtra = modelDangKy.DangKyThanhVien(nhanVien);
+        if(kiemtra.equals("true")){
             viewDangKy.DangKyThanhCong();
-        }else{
+        } else if(kiemtra.equals("datontai")){
+            viewDangKy.TaiKhoanDaTonTai();
+        } else{
             viewDangKy.DangKyThatBai();
         }
     }

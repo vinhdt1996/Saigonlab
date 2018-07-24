@@ -98,16 +98,6 @@
 
         </android.support.design.widget.TextInputLayout>
 
-
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/sEmailDocQuyen"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tôi muốn nhận các khuyến mãi đọc quyền qua email"
-            android:checked="true"
-            android:layout_margin="10dp"
-            />
-
         <Button
             android:id="@+id/btnDangKy"
             android:layout_width="match_parent"
@@ -117,12 +107,6 @@
             android:background="@color/bgLogo"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Chúng tôi đã hiểu rõ các điều khoản bảo mật của Lazada"
-            android:layout_margin="10dp"
-            />
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>
 

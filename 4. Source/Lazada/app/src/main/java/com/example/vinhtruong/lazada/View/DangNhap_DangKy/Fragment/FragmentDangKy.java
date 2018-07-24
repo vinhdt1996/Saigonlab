@@ -1,5 +1,6 @@
 package com.example.vinhtruong.lazada.View.DangNhap_DangKy.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
@@ -15,10 +16,12 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.vinhtruong.lazada.Model.DangNhap_DangKy.ModelDangNhap;
 import com.example.vinhtruong.lazada.Model.ObjectClass.NhanVien;
 import com.example.vinhtruong.lazada.Presenter.DangKy.PresenterLogicDangKy;
 import com.example.vinhtruong.lazada.R;
 import com.example.vinhtruong.lazada.View.DangNhap_DangKy.ViewDangKy;
+import com.example.vinhtruong.lazada.View.TrangChu.TrangChuActivity;
 
 /**
  * Created by vinhtruong on 6/8/2018.
@@ -28,11 +31,12 @@ public class FragmentDangKy extends Fragment implements ViewDangKy, View.OnClick
     PresenterLogicDangKy presenterLogicDangKy;
     View view;
     Boolean kiemTraThongTin = false;
+    String email, matkhau;
     //Layout
     Button btnDangKy;
     EditText edHoTen,edEmail , edMatKhau, edNhapLaiMatKhau;
-    SwitchCompat sEmailDocQuyen;
     TextInputLayout inputEdMatKhauDk, inputEdNhapLaiMatKhauDK, inputEdHoten, inputEdEmail;
+    Boolean kiemTraEmail;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,6 +47,7 @@ public class FragmentDangKy extends Fragment implements ViewDangKy, View.OnClick
         presenterLogicDangKy=new PresenterLogicDangKy(this);
 
         btnDangKy.setOnClickListener(this);
+
         edHoTen.setOnFocusChangeListener(this);
         edMatKhau.setOnFocusChangeListener(this);
         edNhapLaiMatKhau.setOnFocusChangeListener(this);
@@ -56,7 +61,6 @@ public class FragmentDangKy extends Fragment implements ViewDangKy, View.OnClick
         edHoTen=view.findViewById(R.id.edHoTenDK);
         edMatKhau=view.findViewById(R.id.edMatKhauDK);
         edNhapLaiMatKhau=view.findViewById(R.id.edNhapLaiMatKhauDK);
-        sEmailDocQuyen=view.findViewById(R.id.sEmailDocQuyen);
         inputEdMatKhauDk=view.findViewById(R.id.input_edMatKhauDK);
         inputEdNhapLaiMatKhauDK=view.findViewById(R.id.input_edNhapLaiMatKhauDK);
         edEmail=view.findViewById(R.id.edDiaChiEmailDK);
@@ -67,6 +71,8 @@ public class FragmentDangKy extends Fragment implements ViewDangKy, View.OnClick
     @Override
     public void DangKyThanhCong() {
         Toast.makeText(getActivity(), "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+        Intent iTrangChu = new Intent(getActivity(), TrangChuActivity.class);
+        startActivity(iTrangChu);
     }
 
     @Override
@@ -74,32 +80,33 @@ public class FragmentDangKy extends Fragment implements ViewDangKy, View.OnClick
         Toast.makeText(getActivity(), "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
     }
 
-    String emaildocquyen="";
+    @Override
+    public void TaiKhoanDaTonTai() {
+        Toast.makeText(getActivity(), "Tài khoản đã tồn tại", Toast.LENGTH_SHORT).show();
+    }
+
+
     @Override
     public void onClick(View view) {
-        String hoten =edHoTen.getText().toString();
-        String email =edEmail.getText().toString();
-        String matkhau =edMatKhau.getText().toString();
-        String nhaplaimatkhau =edNhapLaiMatKhau.getText().toString();
+        String hoten =edHoTen.getText().toString().trim();
+        email =edEmail.getText().toString().trim();
+        matkhau =edMatKhau.getText().toString().trim();
+        String nhaplaimatkhau =edNhapLaiMatKhau.getText().toString().trim();
 
-        sEmailDocQuyen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                emaildocquyen=b+"";
-            }
-        });
-
-        if(kiemTraThongTin){
+        if(hoten.equals("") || email.equals("") || matkhau.equals("")||nhaplaimatkhau.equals("")){
+            Toast.makeText(getActivity(), "Vui lòng nhập đầy đủ thông tin!", Toast.LENGTH_SHORT).show();
+        }else if(!kiemTraEmail){
+            Toast.makeText(getActivity(), "Email không hợp lệ!", Toast.LENGTH_SHORT).show();
+        }else if(!matkhau.equals(nhaplaimatkhau)){
+            Toast.makeText(getActivity(), "Mật khẩu không trùng khớp", Toast.LENGTH_SHORT).show();
+        }else{
             NhanVien nhanVien=new NhanVien();
             nhanVien.setTenNV(hoten);
             nhanVien.setTenDN(email);
             nhanVien.setMatKhau(matkhau);
-            nhanVien.setEmailDocQuyen(emaildocquyen);
             nhanVien.setMaLoaiNV(2);
 
             presenterLogicDangKy.ThucHienDangKy(nhanVien);
-        }else{
-            Log.d("kiemtra","Dang ky that bai");
         }
     }
 
@@ -132,7 +139,7 @@ public class FragmentDangKy extends Fragment implements ViewDangKy, View.OnClick
                         inputEdEmail.setError("Vui lòng điền mục này.");
                         kiemTraThongTin=false;
                     }else{
-                        Boolean kiemTraEmail = Patterns.EMAIL_ADDRESS.matcher(chuoi).matches();
+                        kiemTraEmail = Patterns.EMAIL_ADDRESS.matcher(chuoi).matches();
                         if(!kiemTraEmail){
                             inputEdEmail.setErrorEnabled(true);
                             inputEdEmail.setError("Email không hợp lệ!");

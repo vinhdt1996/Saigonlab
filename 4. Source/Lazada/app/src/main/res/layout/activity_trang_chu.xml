@@ -41,42 +41,29 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                         <Button
+                            android:id="@+id/btnSearch"
                             android:layout_weight="1"
                             android:drawableLeft="@drawable/ic_search_black_24dp"
-                            android:text="Tìm kiếm trên Lazada"
+                            android:text="Tìm kiếm sản phẩm"
                             android:textColor="@color/colorGray"
                             android:textAllCaps="false"
                             android:paddingLeft="10dp"
+                            android:textSize="16sp"
+                            android:textAlignment="center"
                             android:background="@drawable/selectorbgsearch"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="start|center_vertical"/>
-                        <View
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@color/bgToolbar"
-                            android:layout_width="1dp"
-                            android:layout_height="match_parent"/>
-                        <ImageView
-                            android:layout_marginRight="5dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/selectorbgsearch"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_photo_camera_black_24dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-
                     </LinearLayout>
 
                     <android.support.design.widget.TabLayout
-                        app:tabTextAppearance="@style/capfale"
                         android:id="@+id/tabs"
                         app:tabSelectedTextColor="@color/colorWhite"
                         app:tabTextColor="@color/colorSliderInActive"
                         app:tabIndicatorColor="@color/bgLogo"
+                        app:tabTextAppearance="@style/capfale"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:tabMode="scrollable">
+                        android:layout_height="wrap_content">
 
                     </android.support.design.widget.TabLayout>
 
@@ -92,17 +79,6 @@
         </LinearLayout>
 
     </FrameLayout>
-
-    <ExpandableListView
-        android:background="@color/colorWhite"
-        android:id="@+id/epMenu"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:choiceMode="singleChoice"
-        android:groupIndicator="@null"
-        android:layout_gravity="start">
-
-    </ExpandableListView>
 
 </android.support.v4.widget.DrawerLayout>
 

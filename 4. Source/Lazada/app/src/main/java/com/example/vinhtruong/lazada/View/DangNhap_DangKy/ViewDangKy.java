@@ -7,4 +7,5 @@ package com.example.vinhtruong.lazada.View.DangNhap_DangKy;
 public interface ViewDangKy {
     void DangKyThanhCong();
     void DangKyThatBai();
+    void TaiKhoanDaTonTai();
 }

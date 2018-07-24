@@ -6,6 +6,4 @@ package com.example.vinhtruong.lazada.Presenter.TrangChu_DienTu;
 
 public interface IPresenter_DienTu {
     void LayDanhSachDienTu();
-    void LayDanhSachLogoThuongHieu();
-    void LayDanhSachSanPhamMoi();
 }

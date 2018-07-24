@@ -29,8 +29,7 @@ import java.util.Arrays;
  */
 
 public class FragmentDangNhap extends Fragment implements View.OnClickListener{
-    private Button btnDangNhapFb, btnDangNhap;
-    CallbackManager callbackManager;
+    private Button btnDangNhap;
     ModelDangNhap modelDangNhap;
     EditText edtTenDangNhap, edtMatkhauDN;
     @Nullable
@@ -40,32 +39,10 @@ public class FragmentDangNhap extends Fragment implements View.OnClickListener{
 
         modelDangNhap=new ModelDangNhap();
 
-        FacebookSdk.sdkInitialize(getContext().getApplicationContext());
-        callbackManager=CallbackManager.Factory.create();
-        LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                Intent iTrangChu = new Intent(getActivity(), TrangChuActivity.class);
-                startActivity(iTrangChu);
-            }
-
-            @Override
-            public void onCancel() {
-                Log.d("kiemtra","Thoát");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                Log.d("kiemtra","Lỗi");
-            }
-        });
-
-        btnDangNhapFb=view.findViewById(R.id.btnDangNhapFacebook);
         btnDangNhap=view.findViewById(R.id.btnDangNhap);
         edtTenDangNhap=view.findViewById(R.id.edDiaChiEmailDangNhap);
         edtMatkhauDN=view.findViewById(R.id.edMatKhauDangNhap);
 
-        btnDangNhapFb.setOnClickListener(this);
         btnDangNhap.setOnClickListener(this);
 
         return view;
@@ -75,9 +52,6 @@ public class FragmentDangNhap extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         int id =view.getId();
         switch (id){
-            case R.id.btnDangNhapFacebook:
-                LoginManager.getInstance().logInWithReadPermissions(FragmentDangNhap.this, Arrays.asList("public_profile"));
-                break;
             case R.id.btnDangNhap:
                 String tendangnhap=edtTenDangNhap.getText().toString().trim();
                 String matkhau=edtMatkhauDN.getText().toString().trim();
@@ -90,11 +64,5 @@ public class FragmentDangNhap extends Fragment implements View.OnClickListener{
                 }
                 break;
         }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode,resultCode,data);
     }
 }

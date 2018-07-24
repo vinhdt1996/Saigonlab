@@ -2,6 +2,7 @@ package com.example.vinhtruong.lazada.Model.DangNhap_DangKy;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.vinhtruong.lazada.ConnectInternet.DownloadJSON;
 import com.example.vinhtruong.lazada.View.TrangChu.TrangChuActivity;
@@ -22,35 +23,23 @@ import java.util.concurrent.ExecutionException;
 
 public class ModelDangNhap {
 
-    AccessToken accessToken;
-    AccessTokenTracker accessTokenTracker;
 
-    public AccessToken LayTokenFacebookHienTai(){
-
-        accessTokenTracker=new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-                accessToken=currentAccessToken;
-            }
-        };
-
-        accessToken=AccessToken.getCurrentAccessToken();
-
-        return accessToken;
-    }
-
-    public String LayCachedDangNhap(Context context){
+    public String LayTenDangNhap(Context context){
         SharedPreferences cachedDangNhap = context.getSharedPreferences("dangnhap",Context.MODE_PRIVATE);
         String tennv = cachedDangNhap.getString("tennv","");
-
         return tennv;
     }
+    public int LayMaDangNhap(Context context){
+        SharedPreferences cachedDangNhap = context.getSharedPreferences("dangnhap",Context.MODE_PRIVATE);
+        int manv = cachedDangNhap.getInt("manv",0);
+        return manv;
+    }
 
-    public void CapNhatCachedDangNhap(Context context,String tenv){
+    public void CapNhatCachedDangNhap(Context context,String tenv, int manv){
         SharedPreferences cachedDangNhap = context.getSharedPreferences("dangnhap",Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = cachedDangNhap.edit();
         editor.putString("tennv",tenv);
-
+        editor.putInt("manv",manv);
         editor.commit();
     }
 
@@ -82,8 +71,9 @@ public class ModelDangNhap {
             if(jsonKetQua.equals("true")){
                 kiemtra = true;
                 String tennv = jsonObject.getString("tennv");
+                int manv = jsonObject.getInt("manv");
 
-                CapNhatCachedDangNhap(context,tennv);
+                CapNhatCachedDangNhap(context,tennv, manv);
 
             }else{
                 kiemtra = false;
@@ -99,10 +89,4 @@ public class ModelDangNhap {
 
         return kiemtra;
     }
-
-    public void HuyTokenTracker(){
-        accessTokenTracker.stopTracking();
-    }
-
-
 }
