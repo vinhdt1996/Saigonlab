@@ -71,8 +71,6 @@ public class FragmentDangKy extends Fragment implements ViewDangKy, View.OnClick
     @Override
     public void DangKyThanhCong() {
         Toast.makeText(getActivity(), "Đăng ký thành công", Toast.LENGTH_SHORT).show();
-        Intent iTrangChu = new Intent(getActivity(), TrangChuActivity.class);
-        startActivity(iTrangChu);
     }
 
     @Override

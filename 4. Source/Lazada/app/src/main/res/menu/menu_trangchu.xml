@@ -31,11 +31,11 @@
                 android:icon="@drawable/plus"
                 />
 
-            <item
-                android:id="@+id/itMongMuon"
-                android:title="Danh sách yêu thích"
-                android:icon="@drawable/ic_favorite_border_black_24dp"
-                />
+            <!--<item-->
+                <!--android:id="@+id/itMongMuon"-->
+                <!--android:title="Danh sách yêu thích"-->
+                <!--android:icon="@drawable/ic_favorite_border_black_24dp"-->
+                <!--/>-->
 
             <item
                 android:id="@+id/itDangXuat"

@@ -58,7 +58,9 @@ public class FragmentDangNhap extends Fragment implements View.OnClickListener{
                 boolean kiemtra = modelDangNhap.KiemTraDangNhap(getActivity(),tendangnhap,matkhau);
                 if(kiemtra){
                     Intent iTrangChu = new Intent(getActivity(), TrangChuActivity.class);
+                    iTrangChu.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(iTrangChu);
+                    getActivity().finish();
                 }else{
                     Toast.makeText(getActivity(), "Email hoặc mật khẩu không đúng!", Toast.LENGTH_SHORT).show();
                 }

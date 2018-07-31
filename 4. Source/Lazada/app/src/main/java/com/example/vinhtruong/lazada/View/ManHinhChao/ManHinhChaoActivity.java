@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.example.vinhtruong.lazada.R;
+import com.example.vinhtruong.lazada.View.DangNhap_DangKy.DangNhapActivity;
 import com.example.vinhtruong.lazada.View.TrangChu.TrangChuActivity;
 
 public class ManHinhChaoActivity extends AppCompatActivity {
@@ -19,12 +20,14 @@ public class ManHinhChaoActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try{
-                    Thread.sleep(500);
+                    Thread.sleep(2000);
                 }catch (Exception e){
 
                 }finally {
-                    Intent iTrangChu = new Intent(ManHinhChaoActivity.this, TrangChuActivity.class);
-                    startActivity(iTrangChu);
+                    Intent iDangNhap = new Intent(ManHinhChaoActivity.this, DangNhapActivity.class);
+                    iDangNhap.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(iDangNhap);
+                    finish();
                 }
             }
         });

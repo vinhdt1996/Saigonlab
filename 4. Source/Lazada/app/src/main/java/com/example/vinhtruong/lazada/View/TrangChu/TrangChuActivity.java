@@ -119,6 +119,10 @@ public class TrangChuActivity extends AppCompatActivity implements View.OnClickL
                     modelDangNhap.CapNhatCachedDangNhap(this,"",0);
                     this.menu.clear();
                     this.onCreateOptionsMenu(this.menu);
+                    Intent iDangNhap = new Intent(this, DangNhapActivity.class);
+                    iDangNhap.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(iDangNhap);
+                    finish();
                 }
                 break;
         }
