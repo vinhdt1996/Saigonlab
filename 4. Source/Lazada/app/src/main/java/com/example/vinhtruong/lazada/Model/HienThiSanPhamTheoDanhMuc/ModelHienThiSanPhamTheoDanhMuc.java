@@ -63,11 +63,7 @@ public class ModelHienThiSanPhamTheoDanhMuc {
                 sanPham.setANHLON(object.getString("HINHSANPHAM"));
                 sanPham.setANHNHO(object.getString("HINHSANPHAMNHO"));
 
-                Log.d("aaa",object.getString("HINHSANPHAM"));
-
                 sanPhams.add(sanPham);
-
-
             }
 
         } catch (InterruptedException e) {

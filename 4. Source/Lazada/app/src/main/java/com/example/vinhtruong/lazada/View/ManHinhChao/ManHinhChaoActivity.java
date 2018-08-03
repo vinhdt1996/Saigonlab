@@ -28,6 +28,9 @@ public class ManHinhChaoActivity extends AppCompatActivity {
                     iDangNhap.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(iDangNhap);
                     finish();
+
+//                    Intent iTrangChu = new Intent(ManHinhChaoActivity.this,TrangChuActivity.class);
+//                    startActivity(iTrangChu);
                 }
             }
         });

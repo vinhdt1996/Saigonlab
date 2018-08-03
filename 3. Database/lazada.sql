@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th7 16, 2018 lúc 04:42 AM
+-- Thời gian đã tạo: Th8 03, 2018 lúc 06:33 AM
 -- Phiên bản máy phục vụ: 10.1.30-MariaDB
 -- Phiên bản PHP: 7.2.1
 
@@ -25,31 +25,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `binhluan`
---
-
-CREATE TABLE `binhluan` (
-  `MABL` int(11) NOT NULL,
-  `TIEUDE` varchar(200) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Cấu trúc bảng cho bảng `chitietbinhluan`
---
-
-CREATE TABLE `chitietbinhluan` (
-  `MABL` int(11) NOT NULL,
-  `MANV` int(11) NOT NULL,
-  `MASP` int(11) NOT NULL,
-  `NOIDUNG` text,
-  `NGAYBL` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Cấu trúc bảng cho bảng `chitiethoadon`
 --
 
@@ -58,6 +33,14 @@ CREATE TABLE `chitiethoadon` (
   `MASP` int(11) NOT NULL,
   `SOLUONG` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `chitiethoadon`
+--
+
+INSERT INTO `chitiethoadon` (`MAHD`, `MASP`, `SOLUONG`) VALUES
+(1, 1, 2),
+(2, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -711,22 +694,18 @@ CREATE TABLE `chitietthuonghieu` (
 
 INSERT INTO `chitietthuonghieu` (`MATHUONGHIEU`, `MALOAISP`, `HINHLOAISPTH`) VALUES
 (1, 1, '/hinhthuonghieu/apple.png'),
-(1, 49, '/hinhthuonghieu/macbook.png'),
 (2, 1, '/hinhthuonghieu/nokia.png'),
 (3, 1, '/hinhthuonghieu/samsung.png'),
 (4, 1, '/hinhthuonghieu/xiaomi.png'),
 (5, 1, '/hinhthuonghieu/asus.png'),
 (6, 1, '/hinhthuonghieu/lenovo.png'),
-(6, 49, '/hinhthuonghieu/laptoplenovo.png'),
 (7, 1, '/hinhthuonghieu/oppo.png'),
 (8, 1, '/hinhthuonghieu/sony.png'),
 (9, 1, '/hinhthuonghieu/htc.png'),
-(10, 49, '/hinhthuonghieu/dell.png'),
 (11, 1, '/hinhthuonghieu/hp.png'),
 (12, 1, '/hinhthuonghieu/scandisk.png'),
 (13, 1, '/hinhthuonghieu/silicon.jpg'),
-(14, 1, '/hinhthuonghieu/canon.jpg'),
-(15, 49, '/hinhthuonghieu/microsoft.jpg');
+(14, 1, '/hinhthuonghieu/canon.jpg');
 
 -- --------------------------------------------------------
 
@@ -736,13 +715,24 @@ INSERT INTO `chitietthuonghieu` (`MATHUONGHIEU`, `MALOAISP`, `HINHLOAISPTH`) VAL
 
 CREATE TABLE `danhgia` (
   `MADG` varchar(200) NOT NULL,
-  `MASP` int(11) DEFAULT NULL,
+  `MASP` int(11) NOT NULL,
   `TENTHIETBI` text,
-  `TIEUDE` text,
   `NOIDUNG` text,
   `SOSAO` int(1) DEFAULT NULL,
   `NGAYDANHGIA` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `danhgia`
+--
+
+INSERT INTO `danhgia` (`MADG`, `MASP`, `TENTHIETBI`, `NOIDUNG`, `SOSAO`, `NGAYDANHGIA`) VALUES
+('1', 1, 'Hoàng Vĩnh', 'Bad', 2, '23/07/2018'),
+('112233', 2, 'Redmi 5A', 'good', 4, '23/07/2018'),
+('112233', 4, 'Redmi 5A', 'good', 4, '23/07/2018'),
+('12', 1, 'son', 'good', 5, '23/07/2018'),
+('123abc', 2, 'Redmi 5A', 'Very good', 5, '23/07/2018'),
+('123abc', 4, 'Redmi 5A', 'Good', 3, '20/07/2018');
 
 -- --------------------------------------------------------
 
@@ -761,6 +751,14 @@ CREATE TABLE `hoadon` (
   `CHUYENKHOAN` tinyint(1) DEFAULT NULL,
   `MACHUYENKHOAN` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `hoadon`
+--
+
+INSERT INTO `hoadon` (`MAHD`, `NGAYMUA`, `NGAYGIAO`, `TRANGTHAI`, `TENNGUOINHAN`, `SODT`, `DIACHI`, `CHUYENKHOAN`, `MACHUYENKHOAN`) VALUES
+(1, '29/07/2018', '', 'chờ kiểm duyệt', 'Truong Hoang Vinh', '0919073222', 'Quan 9, TPHCM', 0, 'không có'),
+(2, '29/07/2018', '', 'chờ kiểm duyệt', 'Dong Van Son', '0919999999', 'Ha Noi', 1, 'không có');
 
 -- --------------------------------------------------------
 
@@ -782,9 +780,9 @@ CREATE TABLE `khuyenmai` (
 --
 
 INSERT INTO `khuyenmai` (`MAKM`, `MALOAISP`, `TENKM`, `NGAYBATDAU`, `NGAYKETTHUC`, `HINHKHUYENMAI`) VALUES
-(1, 2, 'Xã hàng hot đến 49%', '2016/9/12', '2016/10/12', '/hinhkhuyenmai/con loc giam gia mua he.png'),
-(2, 2, 'Giải nhiệt mùa hè giảm ngay 50%', '2016/9/12', '2016/10/12', '/hinhkhuyenmai/khuyen mai ta quan ta dan.jpg'),
-(3, 2, 'Hè này mua gì ?', '2016/9/12', '2016/10/12', '/hinhkhuyenmai/du lich.jpg'),
+(1, 2, 'Xã hàng hot đến 49%', '2016/9/12', '2019/7/20', '/hinhkhuyenmai/con loc giam gia mua he.png'),
+(2, 2, 'Giải nhiệt mùa hè giảm ngay 50%', '2016/9/12', '2019/7/20', '/hinhkhuyenmai/km2.jpg'),
+(3, 2, 'Hè này mua gì ?', '2016/9/12', '2019/7/20', '/hinhkhuyenmai/du lich.jpg'),
 (4, 3, 'Festival salve !', '2016/9/12', '2016/10/12', '/hinhkhuyenmai/festival sale 90.jpg');
 
 -- --------------------------------------------------------
@@ -903,7 +901,6 @@ INSERT INTO `loaisanpham` (`MALOAISP`, `TENLOAISP`, `MALOAI_CHA`) VALUES
 (78, 'Dành cho nữ', 77),
 (79, 'Dành cho nam', 77),
 (80, 'Dành cho bé', 77),
-(81, 'Thời trang', 0),
 (82, 'TV, Video, Âm Thanh ,Game & Thiết Bị Số', 0),
 (83, 'Tivi', 82),
 (84, 'Dưới 24 inches', 83),
@@ -977,10 +974,6 @@ CREATE TABLE `nhanvien` (
   `TENNV` varchar(100) DEFAULT NULL,
   `TENDANGNHAP` varchar(100) DEFAULT NULL,
   `MATKHAU` varchar(100) DEFAULT NULL,
-  `DIACHI` varchar(200) DEFAULT NULL,
-  `NGAYSINH` varchar(20) DEFAULT NULL,
-  `SODT` varchar(20) DEFAULT NULL,
-  `GIOITINH` tinyint(1) DEFAULT NULL,
   `MALOAINV` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -988,8 +981,11 @@ CREATE TABLE `nhanvien` (
 -- Đang đổ dữ liệu cho bảng `nhanvien`
 --
 
-INSERT INTO `nhanvien` (`MANV`, `TENNV`, `TENDANGNHAP`, `MATKHAU`, `DIACHI`, `NGAYSINH`, `SODT`, `GIOITINH`, `MALOAINV`) VALUES
-(1, 'Hoàng Vĩnh', 'vinh@gmail.com', '123456', NULL, NULL, NULL, NULL, 1);
+INSERT INTO `nhanvien` (`MANV`, `TENNV`, `TENDANGNHAP`, `MATKHAU`, `MALOAINV`) VALUES
+(1, 'Hoàng Vĩnh', 'vinh@gmail.com', '123456', 2),
+(12, 'Sơn', 'son@gmail.com', '123456', 2),
+(13, 'Admin', 'admin', '123456', 1),
+(16, 'Huy Nguyễn', 'huy@gmail.com', '123456', 2);
 
 -- --------------------------------------------------------
 
@@ -1016,39 +1012,42 @@ CREATE TABLE `sanpham` (
 --
 
 INSERT INTO `sanpham` (`MASP`, `TENSP`, `GIA`, `ANHLON`, `ANHNHO`, `THONGTIN`, `SOLUONG`, `MALOAISP`, `MATHUONGHIEU`, `LUOTMUA`, `MANV`) VALUES
-(1, 'Apple Iphone 6s Plus 16GB', '13960000', '/hinhsanpham/iphone6spluse.png', '/hinhsanpham/iphone6spluse1.jpg,/hinhsanpham/iphone6spluse2.jpg,/hinhsanpham/iphone6spluse3.png,/hinhsanpham/iphone6spluse4.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 2, 1, 0, 1),
-(2, 'Apple Iphone 6s Plus 16GB (Vàng hồng)', '13960000', '/hinhsanpham/iphone6spluse.png', '/hinhsanpham/iphone6spluse1.jpg,/hinhsanpham/iphone6spluse2.jpg,/hinhsanpham/iphone6spluse3.png,/hinhsanpham/iphone6spluse4.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 2, 1, 0, 1),
-(3, 'Apple Iphone 6s Plus 16GB (Vàng gold)', '13960000', '/hinhsanpham/iphone6spluse.png', '/hinhsanpham/iphone6spluse1.jpg,/hinhsanpham/iphone6spluse2.jpg,/hinhsanpham/iphone6spluse3.png,/hinhsanpham/iphone6spluse4.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 2, 1, 0, 1),
-(4, 'Apple Iphone 6s Plus 16GB (Vàng gold)', '13960000', '/hinhsanpham/iphone6spluse.png', '/hinhsanpham/iphone6spluse1.jpg,/hinhsanpham/iphone6spluse2.jpg,/hinhsanpham/iphone6spluse3.png,/hinhsanpham/iphone6spluse4.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 2, 1, 0, 2),
-(5, 'Apple Iphone 6s Plus 16GB (Vàng gold)', '13960000', '/hinhsanpham/iphone6spluse.png', '/hinhsanpham/iphone6spluse1.jpg,/hinhsanpham/iphone6spluse2.jpg,/hinhsanpham/iphone6spluse3.png,/hinhsanpham/iphone6spluse4.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 2, 1, 0, 2),
-(6, 'Apple Iphone 6s Plus 16GB (Vàng gold)', '13960000', '/hinhsanpham/iphone6spluse.png', '/hinhsanpham/iphone6spluse1.jpg,/hinhsanpham/iphone6spluse2.jpg,/hinhsanpham/iphone6spluse3.png,/hinhsanpham/iphone6spluse4.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 2, 1, 0, 2),
-(7, 'Apple Iphone 6s Plus 16GB (Vàng gold)', '13960000', '/hinhsanpham/iphone6spluse.png', '/hinhsanpham/iphone6spluse1.jpg,/hinhsanpham/iphone6spluse2.jpg,/hinhsanpham/iphone6spluse3.png,/hinhsanpham/iphone6spluse4.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 2, 1, 0, 2),
-(8, 'Apple Iphone 6s Plus 16GB (Vàng gold)', '13960000', '/hinhsanpham/iphone6spluse.png', '/hinhsanpham/iphone6spluse1.jpg,/hinhsanpham/iphone6spluse2.jpg,/hinhsanpham/iphone6spluse3.png,/hinhsanpham/iphone6spluse4.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 2, 1, 0, 2),
-(9, 'Apple Iphone 6s Plus 16GB (Vàng gold)', '13960000', '/hinhsanpham/iphone6spluse.png', '/hinhsanpham/iphone6spluse1.jpg,/hinhsanpham/iphone6spluse2.jpg,/hinhsanpham/iphone6spluse3.png,/hinhsanpham/iphone6spluse4.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 2, 1, 0, 2),
-(10, 'Apple Iphone 6s Plus 16GB (Vàng gold)', '13960000', '/hinhsanpham/iphone6spluse.png', '/hinhsanpham/iphone6spluse1.jpg,/hinhsanpham/iphone6spluse2.jpg,/hinhsanpham/iphone6spluse3.png,/hinhsanpham/iphone6spluse4.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 2, 1, 0, 2),
-(11, 'Apple Iphone 6s Plus 16GB (Vàng gold)', '13960000', '/hinhsanpham/iphone6spluse.png', '/hinhsanpham/iphone6spluse1.jpg,/hinhsanpham/iphone6spluse2.jpg,/hinhsanpham/iphone6spluse3.png,/hinhsanpham/iphone6spluse4.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 49, 1, 0, 2),
-(12, 'Pin sạc dự phòng Asus Zenpower 10.050mAh (Vàng) ', '339000', '/hinhsanpham/pinsacduphongasus.jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 13, 5, 0, 2),
-(13, 'Bao da kiêm bàn phím cho máy tính bảng 7 inch ( Đen)  ', '98000', '/hinhsanpham/baodabanphimmaytinhbang7ich.jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 14, 5, 0, 2),
-(14, 'Gậy chụp hình Selfie Stick (Đen phối vàng) ', '36000', '/hinhsanpham/gaychuphinhtusuong.png', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 16, 5, 0, 2),
-(15, 'Bộ Miếng dán cường lực và ốp lưng cho iPhone 6 - NVPro 30306 (Trong suốt)  ', '86000', '/hinhsanpham/mieng-gian-cuong-luc-iphone-6-6s.jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 7, 5, 0, 2),
-(16, 'Đế kẹp smartphone cho điện thoại', '36000', '/hinhsanpham/dekepsmartphonechodienthoai.jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 8, 5, 0, 2),
-(17, 'Sim 3G tài khoản 600 MB', '106000', '/hinhsanpham/sim3gtaikhoan600.jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 12, 5, 0, 2),
-(18, 'Ổ cắm thông minh Xiaomi Mi Power Strips (Trắng) ', '166000', '/hinhsanpham/o-cam-thong-minh-xiaomi.jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 11, 5, 0, 2),
-(19, 'Giá đỡ điện thoại cho tay cầm chơi Game Terios T-3 ( Đen)  ', '99000', '/hinhsanpham/taycamchoigame.jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 11, 5, 0, 2),
-(20, 'Tivi LED Arirang 24inch HD - Model AR-2488F (Đen)', '2439000', '/hinhsanpham/tiviled24inchesariang.jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 84, 5, 0, 2),
-(21, 'Tivi LED LG 42inch 42LF550T Full HD (Đen)  ', '6939000', '/hinhsanpham/tiviled42inches.jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 85, 5, 0, 2),
-(22, 'Smart Tivi LED LG 55inch Full HD - Model 55LH575T (Đen)', '17000000', '/hinhsanpham/tiviled55inches.jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 87, 5, 0, 2),
-(23, 'Load Bluetooth SUNTEK S204 (Đen) ', '269000', '/hinhsanpham/sony-electronics-hd-radio.jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 92, 5, 0, 2),
-(24, 'Tai nghe chụp tai Ovann X1 Gaming (Đen phối Xanh) ', '60000', '/hinhsanpham/tai-nghe-chup-tai-ovann-x1-gaming-den-phoi-xanh_5235588062018469161_300.jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 91, 5, 0, 2),
-(25, 'Dàn âm thanh Samsung HT-E350K 5.1 330W (Đen) ', '1760000', '/hinhsanpham/vish-dvd-ht-e350k-2.jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 93, 5, 0, 2),
-(26, 'Máy nghe nhạc MP3 NVPro Minion (Xanh dương) ', '40000', '/hinhsanpham/may-nghe-nhac-mp3-nvpro-minion-xanh-duong-8610-6315961-e77b808c5237d08a940e6fe597050469-catalog_233.jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 94, 5, 0, 2),
-(27, 'Máy chiếu mini cho điện thoại (Nâu)  ', '169999', '/hinhsanpham/may-chieu-mini-cho-dien-thoai-nau-9973-9001242-168928dd2df3fa0fae4f2c453b3e8620-catalog_233.jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 96, 5, 0, 2),
-(28, 'Thiết bị Android TV box MXQ S805 (Đen) ', '429300', '/hinhsanpham/20160530150209551.jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 97, 5, 0, 2),
-(29, 'Tay cầm chơi game Xbox One Controller và Wireless Adapter for PC (Đen)', '1549000', '/hinhsanpham/36743763_palaciodehierro_wirelesscontrollerc35mmone_xbox_vista_1.jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 99, 5, 0, 2),
-(30, 'Máy chơi games Nintendo Wii +HDD 500 GB (Full Games) (Đen) ', '5999000', '/hinhsanpham/23. WII CONSOLE BLACK W WII REMOTE PLUS _ NUNCHUCK (UPC 045496880675).jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 100, 5, 0, 2),
-(31, 'Đồng hồ thông minh Smart Watch Uwatch DZ09 (Bạc) ', '302676000', '/hinhsanpham/res_50df6f16088731d12e6c6698c47231e4_1200x1200c_mttq.jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 102, 5, 0, 2),
-(32, 'Vòng đeo tay Xiaomi Miband 2 (Đen)  ', '819000', '/hinhsanpham/sh-02-a.jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 103, 5, 0, 2),
-(33, 'Bút ghi âm chuyên nghiệp 8 GB (Đen) ', '612000', '/hinhsanpham/130814225508442671.jpg', '', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 104, 5, 0, 2);
+(1, 'Apple iPhone 6 32GB Gold', '6490000', '/hinhsanpham/i6gold.jpg', '/hinhsanpham/i62.jpg,/hinhsanpham/i61.jpg,/hinhsanpham/i6gold3.jpg,/hinhsanpham/i6gold4.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 6, 2, 1, 0, 1),
+(2, 'Apple iPhone X 64GB Space Grey', '24990000', '/hinhsanpham/x1.png', '/hinhsanpham/ix1.jpg,/hinhsanpham/ix2.png,/hinhsanpham/ix3.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 2, 1, 0, 1),
+(3, 'Apple iPhone 8 Plus 64GB Gold', '20490000', '/hinhsanpham/iphone8plus.jpg', '/hinhsanpham/i8gold1.jpg,/hinhsanpham/i8gold2.png,/hinhsanpham/i8gold3.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 2, 1, 0, 1),
+(4, 'Apple iPhone 8 Plus Red Red', '20490000', '/hinhsanpham/iphone8plusred.jpg', '/hinhsanpham/i8red1.png,/hinhsanpham/i8red2.jpg,/hinhsanpham/i8red3.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 2, 1, 0, 1),
+(5, 'Apple iPhone X 256GB Silver', '28990000', '/hinhsanpham/ixsilver.jpg\r\n', '/hinhsanpham/ixsilver1.jpg,/hinhsanpham/ixsilver2.jpg,/hinhsanpham/ixsilver3.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 2, 1, 0, 1),
+(6, 'Apple iPhone 7 32GB Black', '13890000', '/hinhsanpham/i7black.jpg', '/hinhsanpham/i7black1.jpg,/hinhsanpham/i7black2.jpg,/hinhsanpham/i7black3.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 2, 1, 0, 1),
+(7, 'Apple iPhone 8 Plus 64GB Silver', '17490000', '/hinhsanpham/i8plussilver.jpg', '/hinhsanpham/i8silver2.jpg,/hinhsanpham/i8silver1.png', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 2, 1, 0, 1),
+(8, 'Apple iPhone 7 32GB Rose Gold', '13890000', '/hinhsanpham/i7rosegold.jpg', '/hinhsanpham/i7rose1.jpg,/hinhsanpham/i7rose2.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 2, 1, 0, 1),
+(9, 'Apple iPhone 8 Plus 256GB (Vàng) - Hàng nhập khẩu', '17490000', '/hinhsanpham/i8plusnk.jpg', '/hinhsanpham/i8vang.jpg,/hinhsanpham/i8vang2.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 2, 1, 0, 1),
+(10, 'Apple iPhone 7 32GB (Vàng hồng)', '13960000', '/hinhsanpham/i7vanghong.jpg', '/hinhsanpham/i7vang1.jpg,/hinhsanpham/i7vang2.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 2, 1, 0, 1),
+(11, 'Apple iPhone 6s 128GB (Vàng)', '6490000', '/hinhsanpham/i6svang.jpg', '/hinhsanpham/i6gold1.jpg,/hinhsanpham/i6gold2.png', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 49, 1, 0, 1),
+(12, 'Pin sạc dự phòng Asus Zenpower 10.050mAh (Vàng) ', '339000', '/hinhsanpham/pinsacduphongasus.jpg', '/hinhsanpham/pin2.jpg,/hinhsanpham/pin1.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 6, 13, 5, 0, 1),
+(13, 'Bao da kiêm bàn phím cho máy tính bảng 7 inch ( Đen)  ', '98000', '/hinhsanpham/baodabanphimmaytinhbang7ich.jpg', '/hinhsanpham/baoda1.jpg,/hinhsanpham/baoda2.jpg,/hinhsanpham/baoda3.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 14, 5, 0, 1),
+(14, 'Gậy chụp hình Selfie Stick (Đen phối vàng) ', '36000', '/hinhsanpham/gaychuphinhtusuong.png', '/hinhsanpham/sefi2.jpg,/hinhsanpham/sefi1.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 16, 5, 0, 1),
+(15, 'Bộ Miếng dán cường lực và ốp lưng cho iPhone 6 - NVPro 30306 (Trong suốt)  ', '86000', '/hinhsanpham/mieng-gian-cuong-luc-iphone-6-6s.jpg', '/hinhsanpham/dan1.jpg,/hinhsanpham/dan2.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 7, 5, 0, 1),
+(16, 'Đế kẹp smartphone cho điện thoại', '36000', '/hinhsanpham/dekepsmartphonechodienthoai.jpg', '/hinhsanpham/de1.jpg,/hinhsanpham/de2.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 8, 5, 0, 1),
+(17, 'Sim 3G tài khoản 600 MB', '106000', '/hinhsanpham/sim3gtaikhoan600.jpg', '/hinhsanpham/3g1.jpg,/hinhsanpham/3g2.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 14, 12, 5, 0, 1),
+(18, 'Ổ cắm thông minh Xiaomi Mi Power Strips (Trắng) ', '166000', '/hinhsanpham/o-cam-thong-minh-xiaomi.jpg', '/hinhsanpham/ocam1.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 11, 5, 0, 1),
+(19, 'Giá đỡ điện thoại cho tay cầm chơi Game Terios T-3 ( Đen)  ', '99000', '/hinhsanpham/taycamchoigame.jpg', '/hinhsanpham/giado1.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 11, 5, 0, 1),
+(20, 'Tivi LED Arirang 24inch HD - Model AR-2488F (Đen)', '2439000', '/hinhsanpham/tiviled24inchesariang.jpg', '/hinhsanpham/tvled1.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 84, 5, 0, 1),
+(21, 'Tivi LED LG 42inch 42LF550T Full HD (Đen)  ', '6939000', '/hinhsanpham/tiviled42inches.jpg', '/hinhsanpham/tvlg1.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 85, 5, 0, 1),
+(22, 'Smart Tivi LED LG 55inch Full HD - Model 55LH575T (Đen)', '17000000', '/hinhsanpham/tiviled55inches.jpg', '/hinhsanpham/smarttv1.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 86, 5, 0, 1),
+(23, 'Load Bluetooth SUNTEK S204 (Đen) ', '269000', '/hinhsanpham/sony-electronics-hd-radio.jpg', '/hinhsanpham/loa1.jpg,/hinhsanpham/loa2.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 91, 5, 0, 1),
+(24, 'Tai nghe chụp tai Ovann X1 Gaming (Đen phối Xanh) ', '60000', '/hinhsanpham/tai-nghe-chup-tai-ovann-x1-gaming-den-phoi-xanh_5235588062018469161_300.jpg', '/hinhsanpham/tainghe1.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 92, 5, 0, 1),
+(25, 'Dàn âm thanh Samsung HT-E350K 5.1 330W (Đen) ', '1760000', '/hinhsanpham/vish-dvd-ht-e350k-2.jpg', '/hinhsanpham/amthanh1.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 93, 5, 0, 1),
+(26, 'Máy nghe nhạc MP3 NVPro Minion (Xanh dương) ', '40000', '/hinhsanpham/may-nghe-nhac-mp3-nvpro-minion-xanh-duong-8610-6315961-e77b808c5237d08a940e6fe597050469-catalog_233.jpg', '/hinhsanpham/mp31.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 94, 5, 0, 1),
+(27, 'Máy chiếu mini cho điện thoại (Nâu)  ', '169999', '/hinhsanpham/may-chieu-mini-cho-dien-thoai-nau-9973-9001242-168928dd2df3fa0fae4f2c453b3e8620-catalog_233.jpg', '/hinhsanpham/maychieu1.png', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 95, 5, 0, 1),
+(28, 'Thiết bị Android TV box MXQ S805 (Đen) ', '429300', '/hinhsanpham/20160530150209551.jpg', '/hinhsanpham/thietbi1.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 96, 5, 0, 1),
+(29, 'Tay cầm chơi game Xbox One Controller và Wireless Adapter for PC (Đen)', '1549000', '/hinhsanpham/36743763_palaciodehierro_wirelesscontrollerc35mmone_xbox_vista_1.jpg', '/hinhsanpham/xbox1.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 99, 5, 0, 1),
+(30, 'Máy chơi games Nintendo Wii +HDD 500 GB (Full Games) (Đen) ', '5999000', '/hinhsanpham/23. WII CONSOLE BLACK W WII REMOTE PLUS _ NUNCHUCK (UPC 045496880675).jpg', '/hinhsanpham/nintendo1.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 100, 5, 0, 1),
+(31, 'Đồng hồ thông minh Smart Watch Uwatch DZ09 (Bạc) ', '302676000', '/hinhsanpham/res_50df6f16088731d12e6c6698c47231e4_1200x1200c_mttq.jpg', '/hinhsanpham/watch1.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 102, 5, 0, 1),
+(32, 'Vòng đeo tay Xiaomi Miband 2 (Đen)  ', '819000', '/hinhsanpham/sh-02-a.jpg', '/hinhsanpham/mi1.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 103, 4, 0, 1),
+(33, 'Bút ghi âm chuyên nghiệp 8 GB (Đen) ', '612000', '/hinhsanpham/130814225508442671.jpg', '/hinhsanpham/pen1.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 104, 5, 0, 1),
+(35, '\r\nApple MacBook Air 13-inch 1.8GHz dual-core Intel Core i5 128GB Silver', '20490000', '/hinhsanpham/mac1.jpg', '/hinhsanpham/mac1.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 49, 1, 0, 1),
+(37, 'Xiaomi Black Shark 5.99 inch 8GB RAM 128GB', '38880000', '/hinhsanpham/xiaomi1.jpg', '/hinhsanpham/xiaomi1.jpg', 'Asus ZenPower là viên pin sạc chính hãng hiếm hoi đến từ một nhà sản xuất điện thoại khá lớn ở Việt Nam. Hiện tại ZenPower có khá nhiều màu khác nhau, từ hồng đẹp trai đến màu đen yếu đuối. Hiện tại thì mình mượn được màu hồng mạnh mẽ và vàng sang chảnh để trên tay. Asus có bán các miếng bảo vệ cao su nhiều màu cho pin nhưng không rõ có được phân phối ở Việt Nam hay không.', 10, 2, 4, 0, 1),
+(38, 'Bộ củ Sạc Xiaomi 5V-2A và Cáp sạc Xiaomi (Đen)', '89000', '/hinhsanpham/sacxiaomi.jpg', '/hinhsanpham/sacxiaomi.jpg', 'Là hàng được nhập khẩu trực tiếp từ nước ngoài bởi doanh nghiệp trong nước, không thông qua nhà phân phối chính thức tại thị trường Việt Nam.\r\nHàng nhập khẩu được nhiều người chọn lựa bởi giá thành tốt, chất lượng vẫn được đảm bảo như những sản phẩm được nhập khẩu thông qua nhà phân phối chính thức (vì được sản xuất từ cùng một nhà máy của hãng sản xuất). Hơn nữa, dù không được bảo hành tại các trung tâm bảo hành chính thức của hãng, các sản phẩm này vẫn được áp dụng đầy đủ chính sách bảo hành của doanh nghiệp nhập khẩu', 10, 13, 4, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -1089,20 +1088,6 @@ INSERT INTO `thuonghieu` (`MATHUONGHIEU`, `TENTHUONGHIEU`, `HINHTHUONGHIEU`, `LU
 --
 
 --
--- Chỉ mục cho bảng `binhluan`
---
-ALTER TABLE `binhluan`
-  ADD PRIMARY KEY (`MABL`);
-
---
--- Chỉ mục cho bảng `chitietbinhluan`
---
-ALTER TABLE `chitietbinhluan`
-  ADD PRIMARY KEY (`MABL`,`MANV`,`MASP`),
-  ADD KEY `KHOANGOAI_CHITIETBINHLUAN_MANV` (`MANV`),
-  ADD KEY `KHOANGOAI_CHITIETBINHLUAN_MASP` (`MASP`);
-
---
 -- Chỉ mục cho bảng `chitiethoadon`
 --
 ALTER TABLE `chitiethoadon`
@@ -1133,7 +1118,7 @@ ALTER TABLE `chitietthuonghieu`
 -- Chỉ mục cho bảng `danhgia`
 --
 ALTER TABLE `danhgia`
-  ADD PRIMARY KEY (`MADG`),
+  ADD PRIMARY KEY (`MADG`,`MASP`),
   ADD KEY `KHOANGOAI_DANHGIA_MASP` (`MASP`);
 
 --
@@ -1187,12 +1172,6 @@ ALTER TABLE `thuonghieu`
 --
 
 --
--- AUTO_INCREMENT cho bảng `binhluan`
---
-ALTER TABLE `binhluan`
-  MODIFY `MABL` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT cho bảng `chitietsanpham`
 --
 ALTER TABLE `chitietsanpham`
@@ -1202,7 +1181,7 @@ ALTER TABLE `chitietsanpham`
 -- AUTO_INCREMENT cho bảng `hoadon`
 --
 ALTER TABLE `hoadon`
-  MODIFY `MAHD` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `MAHD` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT cho bảng `khuyenmai`
@@ -1226,13 +1205,13 @@ ALTER TABLE `loaisanpham`
 -- AUTO_INCREMENT cho bảng `nhanvien`
 --
 ALTER TABLE `nhanvien`
-  MODIFY `MANV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `MANV` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT cho bảng `sanpham`
 --
 ALTER TABLE `sanpham`
-  MODIFY `MASP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `MASP` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT cho bảng `thuonghieu`
@@ -1243,14 +1222,6 @@ ALTER TABLE `thuonghieu`
 --
 -- Các ràng buộc cho các bảng đã đổ
 --
-
---
--- Các ràng buộc cho bảng `chitietbinhluan`
---
-ALTER TABLE `chitietbinhluan`
-  ADD CONSTRAINT `KHOANGOAI_CHITIETBINHLUAN_MABL` FOREIGN KEY (`MABL`) REFERENCES `binhluan` (`MABL`),
-  ADD CONSTRAINT `KHOANGOAI_CHITIETBINHLUAN_MANV` FOREIGN KEY (`MANV`) REFERENCES `nhanvien` (`MANV`),
-  ADD CONSTRAINT `KHOANGOAI_CHITIETBINHLUAN_MASP` FOREIGN KEY (`MASP`) REFERENCES `sanpham` (`MASP`);
 
 --
 -- Các ràng buộc cho bảng `chitiethoadon`

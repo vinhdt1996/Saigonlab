@@ -23,8 +23,8 @@ import com.example.vinhtruong.lazada.View.TimKiem.TimKiemActivity;
 
 public class TrangChuActivity extends AppCompatActivity implements View.OnClickListener{
     //SERVER
-    public static final String SERVER_NAME = "http://192.168.1.3:81/weblazada/loaisanpham.php";
-    public static final String SERVER = "http://192.168.1.3:81/weblazada";
+    public static final String SERVER = "http://192.168.40.33:81/weblazada";
+    public static final String SERVER_NAME = SERVER+"/loaisanpham.php";
     //Layout
     private Toolbar toolbar;
     private TabLayout tabLayout;

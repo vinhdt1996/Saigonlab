@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +83,7 @@ public class AdapterThuongHieuLon extends RecyclerView.Adapter<AdapterThuongHieu
                 intentHienThiSpTheoDanhMuc.putExtra("TENLOAI",thuongHieu.getTENTHUONGHIEU());
                 intentHienThiSpTheoDanhMuc.putExtra("KIEMTRA",kiemtra);
                 context.startActivity(intentHienThiSpTheoDanhMuc);
+                Log.d("maloaithuonghieu",thuongHieu.getMATHUONGHIEU()+"");
             }
         });
 
